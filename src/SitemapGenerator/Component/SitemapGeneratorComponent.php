@@ -64,7 +64,21 @@ class SitemapGeneratorComponent extends Component
 				\Yii::createObject($config['writer']) :
 				null;
 
-			return new MultipleGeneratorFactory($writer);
+			$factory = new MultipleGeneratorFactory($writer);
+
+			if (isset($config['urlToSitemapDirectory'])) {
+				$factory->setUrlToSitemapDirectory($config['urlToSitemapDirectory']);
+			}
+
+			if (isset($config['limitOfSitemapRecords'])) {
+				$factory->setLimitOfSitemapRecords($config['limitOfSitemapRecords']);
+			}
+
+			if (isset($config['lastModified'])) {
+				$factory->setLastModified(new \DateTime($config['lastModified']));
+			}
+
+			return $factory;
 		});
 
 		\Yii::$container->set(SimpleGeneratorFactory::class, function($c, $params, $config) {
