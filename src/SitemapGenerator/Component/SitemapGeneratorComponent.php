@@ -46,17 +46,33 @@ class SitemapGeneratorComponent extends Component
 	 */
 	public function init()
 	{
-		\Yii::$container->set(CompositeDataExtractor::class, function ($c, $params) {
+		\Yii::$container->set(CompositeDataExtractor::class, function ($c, $params, $config) {
 			$compositeExtractor = new CompositeDataExtractor();
 
-			if (!empty($params['extractors'])) {
-				foreach ($params['extractors'] as $extractor) {
+			if (!empty($config['extractors'])) {
+				foreach ($config['extractors'] as $extractor) {
 					$extractor = $this->createExtractor($extractor);
 					$compositeExtractor->attachExtractor($extractor);
 				}
 			}
 
 			return $compositeExtractor;
+		});
+
+		\Yii::$container->set(MultipleGeneratorFactory::class, function($c, $params, $config) {
+			$writer = isset($config['writer']) ?
+				\Yii::createObject($config['writer']) :
+				null;
+
+			return new MultipleGeneratorFactory($writer);
+		});
+
+		\Yii::$container->set(SimpleGeneratorFactory::class, function($c, $params, $config) {
+			$writer = isset($config['writer']) ?
+				\Yii::createObject($config['writer']) :
+				null;
+
+			return new SimpleGeneratorFactory($writer);
 		});
 	}
 
