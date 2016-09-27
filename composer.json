@@ -2,20 +2,13 @@
   "name": "mima/yii2-sitemap-generator",
   "description": "Library for create and write sitemap.xml for you site. Yii2 implementation.",
   "require": {
-    "php": ">=5.4",
-    "mima/sitemap-generator": "*"
+    "php": ">=5.5",
+    "mima/sitemap-generator": "@stable"
   },
-  "minimum-stability": "dev",
   "require-dev": {
     "phpunit/phpunit": "^4.8.0",
     "yiisoft/yii2": "~2.0"
   },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../sitemap-generator"
-    }
-  ],
   "license": "MIT",
   "authors": [
     {
