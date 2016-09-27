@@ -3,8 +3,9 @@ namespace SitemapGenerator\Writer;
 
 use SitemapGenerator\Exception\NotExistsException;
 use SitemapGenerator\Exception\NotWritableException;
+use yii\base\InvalidParamException;
 
-class SitemapWriter extends SimpleWriter
+class YiiBasedWriter extends SimpleWriter
 {
 	/**
 	 * Set directory path, where files be saved.
@@ -17,8 +18,12 @@ class SitemapWriter extends SimpleWriter
 	 */
 	public function setDirectoryToSaveSitemap($directoryToSaveSitemap)
 	{
-		$directoryToSaveSitemap = \Yii::getAlias($directoryToSaveSitemap);
+		try {
+			$directoryToSaveSitemap = \Yii::getAlias($directoryToSaveSitemap);
 
-		parent::setDirectoryToSaveSitemap($directoryToSaveSitemap);
+			parent::setDirectoryToSaveSitemap($directoryToSaveSitemap);
+		} catch (InvalidParamException $e) {
+			throw new NotExistsException($directoryToSaveSitemap, 'Alias not found', 0, $e);
+		}
 	}
 }

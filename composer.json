@@ -7,12 +7,13 @@
   },
   "minimum-stability": "dev",
   "require-dev": {
+    "phpunit/phpunit": "^4.8.0",
     "yiisoft/yii2": "~2.0"
   },
   "repositories": [
     {
-      "type": "git",
-      "url": "ssh://mima@78.46.185.132/home/mima/git/SitemapGenerator.git"
+      "type": "path",
+      "url": "../sitemap-generator"
     }
   ],
   "license": "MIT",
